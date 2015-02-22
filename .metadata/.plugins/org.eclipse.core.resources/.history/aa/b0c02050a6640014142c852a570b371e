@@ -1,0 +1,15 @@
+package com.stormcloud.cashregister;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+
+public abstract class TripleFragmentActivity extends FragmentActivity {
+
+	protected abstract Fragment createFragment();
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_triple_fragment);
+	}
+}

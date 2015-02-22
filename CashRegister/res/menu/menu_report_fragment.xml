@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_pick_date"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_menu_search_mtrl_alpha"
+        android:showAsAction="always|withText"
+        android:title="@string/report_search_date" />
+    <item
+        android:id="@+id/action_print_report"
+        android:orderInCategory="100"
+        android:icon="@drawable/donut_glaze"
+        android:showAsAction="always|withText"
+        android:title="Print Sales" />
+</menu>

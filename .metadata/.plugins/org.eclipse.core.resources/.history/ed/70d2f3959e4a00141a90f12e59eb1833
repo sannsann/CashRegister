@@ -1,0 +1,157 @@
+package com.stormcloud.cashregister;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Date;
+
+import android.content.Context;
+import android.util.Log;
+
+/**
+ * Class intended to log a sale for the CashRegister app.
+ * 
+ * CustomerReceipt contains a list of items and the price total, a date for the
+ * sale, the amount received/tendered.
+ * 
+ * The CustomerReceipt class can also keep a log of itself. Daily logs are
+ * created to keep track of sales. Files are named with the date. Each receipt
+ * will be numbered sequentially. Receipt numbers are reset with each new day.
+ * 
+ * @author sanncchhan
+ * 
+ */
+public class CustomerReceipt {
+
+	private ArrayList<Item> mReceiptItems;
+
+	private static CustomerReceipt sCustomerReceipt;
+	private Context mAppContext;
+
+	private Date mDate;
+	private double mTendered;
+
+	private CustomerReceipt(Context appContext) {
+
+		mAppContext = appContext;
+		mReceiptItems = new ArrayList<Item>();
+
+	}
+
+	public static CustomerReceipt get(Context c) {
+		if (sCustomerReceipt == null) {
+			sCustomerReceipt = new CustomerReceipt(c.getApplicationContext());
+		}
+		return sCustomerReceipt;
+	}
+
+	public ArrayList<Item> getReceiptItems() {
+		return mReceiptItems;
+	}
+
+	public void addReceiptItem(Item item) {
+		mReceiptItems.add(item);
+	}
+
+	public double priceTotal() {
+
+		double total = 0;
+
+		for (Item i : mReceiptItems) {
+			total += i.getQty() * i.getPrice();
+		}
+
+		return total;
+	}
+
+	public Item getItem(int position) {
+
+		return mReceiptItems.get(position);
+
+	}
+
+	public void removeItem(int position) {
+
+		mReceiptItems.remove(position);
+
+	}
+
+	public double changeTotal(double tendered) {
+		return 0.0;
+	}
+
+	public Date getDate() {
+		return mDate;
+	}
+
+	public void setDate(Date date) {
+		this.mDate = date;
+	}
+
+	public double getTendered() {
+		return mTendered;
+	}
+
+	public void setTendered(double tendered) {
+		this.mTendered = tendered;
+	}
+
+	public double getChange() {
+		return getTendered() - priceTotal();
+	}
+
+//	public void writeToFile(Context context, String data) {
+//		try {
+//
+//			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
+//					context.openFileOutput("Today.csv", Context.MODE_PRIVATE));
+//			outputStreamWriter.write(data);
+//			outputStreamWriter.close();
+//		} catch (IOException e) {
+//			Log.e("Exception", "File write failed: " + e.toString());
+//		}
+//	}
+//
+//	public String readFromFile(Context context) {
+//
+//		String ret = "";
+//
+//		try {
+//			InputStream inputStream = context.openFileInput("FILE_NAME_HERE.TXT");
+//
+//			if (inputStream != null) {
+//				InputStreamReader inputStreamReader = new InputStreamReader(
+//						inputStream);
+//				BufferedReader bufferedReader = new BufferedReader(
+//						inputStreamReader);
+//				String receiveString = "";
+//				StringBuilder stringBuilder = new StringBuilder();
+//
+//				while ((receiveString = bufferedReader.readLine()) != null) {
+//					stringBuilder.append(receiveString);
+//				}
+//
+//				inputStream.close();
+//				ret = stringBuilder.toString();
+//			}
+//		} catch (FileNotFoundException e) {
+//			Log.e("login activity", "File not found: " + e.toString());
+//		} catch (IOException e) {
+//			Log.e("login activity", "Can not read file: " + e.toString());
+//		}
+//
+//		return ret;
+//	}
+	
+	@Override
+	public String toString() {
+	
+		return "";
+	}
+}

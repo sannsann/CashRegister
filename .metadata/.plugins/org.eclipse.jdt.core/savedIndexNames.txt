@@ -1,0 +1,6 @@
+INDEX VERSION 1.126+/Users/schhan/Documents/CashRegister/.metadata/.plugins/org.eclipse.jdt.core
+1958024374.index
+1062701242.index
+80858343.index
+255741280.index
+512199848.index

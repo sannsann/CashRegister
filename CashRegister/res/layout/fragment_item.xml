@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="@string/add_item"
+                android:textSize="24sp" />
+
+            <com.stormcloud.cashregister.FloatLabelLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:floatLabelTextAppearance="@style/TextAppearance.cashregister.FloatLabel">
+
+                <EditText
+                    android:id="@+id/item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/item_name_label"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textCapWords|textFilter|textNoSuggestions"
+                    android:nextFocusDown="@+id/item_category_autocomplete"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true" />
+            </com.stormcloud.cashregister.FloatLabelLayout>
+
+            <!--<TextView-->
+            <!--style="?android:listSeparatorTextViewStyle"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/item_details_label" />-->
+
+            <!--<com.stormcloud.cashregister.FloatLabelLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--app:floatLabelTextAppearance="@style/TextAppearance.cashregister.FloatLabel">-->
+
+            <!--<EditText-->
+            <!--android:id="@+id/item_category"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/item_category_label"-->
+            <!--android:imeOptions="flagNoExtractUi"-->
+            <!--android:inputType="textCapWords"-->
+            <!--android:nextFocusDown="@+id/item_price"-->
+            <!--android:singleLine="true" />-->
+            <!--</com.stormcloud.cashregister.FloatLabelLayout>-->
+
+            <com.stormcloud.cashregister.FloatLabelLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:floatLabelTextAppearance="@style/TextAppearance.cashregister.FloatLabel">
+
+                <AutoCompleteTextView
+                    android:id="@+id/item_category_autocomplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/item_category_label_autocomplete"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textCapWords|textFilter|textNoSuggestions"
+                    android:nextFocusDown="@+id/item_price"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true" />
+            </com.stormcloud.cashregister.FloatLabelLayout>
+
+            <com.stormcloud.cashregister.FloatLabelLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:floatLabelTextAppearance="@style/TextAppearance.cashregister.FloatLabel">
+
+                <EditText
+                    android:id="@+id/item_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/item_price_hint"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/item_qty"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true" />
+            </com.stormcloud.cashregister.FloatLabelLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="18dp"
+                android:orientation="horizontal">
+
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="12dp"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:layout_marginRight="24dp"-->
+                <!--android:text="Taxable"-->
+                <!--android:textColor="@color/MD_red"-->
+                <!--android:textSize="12sp" /> -->
+
+                <TextView
+                    style="@style/EditTextLabelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36dp"
+                    android:layout_marginLeft="14dp"
+                    android:text="Taxable?" />
+
+                <TextView
+                    style="@style/EditTextLabelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <CheckBox
+                    android:id="@+id/item_taxable_checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-12dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="24dp"
+                    android:scaleX="1.25"
+                    android:scaleY="1.25"
+                    android:textSize="32sp" />
+            </LinearLayout>
+
+            <!--TODO How is UPC code implemented?-->
+
+            <com.stormcloud.cashregister.FloatLabelLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:floatLabelTextAppearance="@style/TextAppearance.cashregister.FloatLabel">
+
+                <EditText
+                    android:id="@+id/item_qty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/item_qty_label"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/item_upc"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true" />
+            </com.stormcloud.cashregister.FloatLabelLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp">
+
+                <TextView
+                    android:id="@+id/item_upc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@string/item_upc_hint" />
+
+                <Button
+                    android:id="@+id/item_upc_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_weight="1"
+                    android:text="@string/item_scan" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp">
+
+                <TextView
+                    android:id="@+id/item_icon_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@string/item_pick_icon_hint" />
+
+                <ImageView
+                    android:id="@+id/item_icon_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <!--android:background=""/>-->
+
+                <Button
+                    android:id="@+id/item_icon_pick_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_weight="1"
+                    android:text="@string/item_pick_icon" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/item_finish_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="18dp"
+                android:text="Finish"
+                android:textSize="32sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

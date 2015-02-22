@@ -1,0 +1,360 @@
+package com.stormcloud.cashregister;
+
+import java.io.File;
+import java.io.OutputStreamWriter;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fortysevendeg.swipelistview.SwipeListView;
+import com.fortysevendeg.swipelistview.SwipeListViewListener;
+
+public class ReceiptFragment extends ListFragment {
+
+	private static final String TAG = "ReceiptFragment";
+
+	private ArrayList<Item> mReceiptItems;
+
+	private CustomerReceipt mCustomerReceipt;
+
+	private SwipeListView slv;
+
+	private TextView mGrandTotalTextView;
+
+	// ItemAdapter adapter;
+	// List<ItemRow> itemData;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		mReceiptItems = CustomerReceipt.get(getActivity()).getReceiptItems();
+
+		// ReceiptItemAdapter adapter = new ReceiptItemAdapter(mReceiptItems);
+
+		SwipeViewAdapter adapter = new SwipeViewAdapter(mReceiptItems);
+
+		setListAdapter(adapter);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
+			Bundle savedInstanceState) {
+
+		View v = inflater.inflate(R.layout.fragment_receipt, parent, false);
+
+		slv = (SwipeListView) v.findViewById(android.R.id.list);
+
+		// Swipe mode
+		slv.setSwipeMode(SwipeListView.SWIPE_MODE_RIGHT);
+
+		// Swiping towards the left (4 available options)
+		slv.setSwipeActionLeft(SwipeListView.SWIPE_ACTION_DISMISS);
+
+		// Swiping towards the right
+		slv.setSwipeActionRight(SwipeListView.SWIPE_ACTION_DISMISS);
+		// slv.setOffsetLeft(convertDpToPixel(260f)); // left side offset
+		// slv.setOffsetRight(convertDpToPixel(0f)); // right side offset
+		slv.setAnimationTime(250); // animation time
+		// slv.setSwipeOpenOnLongPress(true)
+
+		SwipeListViewListener slvListener = new SwipeListViewListener() {
+
+			@Override
+			public void onStartOpen(int position, int action, boolean right) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onStartClose(int position, boolean right) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onOpened(int position, boolean toRight) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onMove(int position, float x) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onListChanged() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onLastListItem() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFirstListItem() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onDismiss(int[] reverseSortedPositions) {
+
+				// This callback takes an int array, reverseSortedPositions,
+				// of length 1. The value of reverseSortedPositions[0], when
+				// called by the SwipeListView class, is the position of the
+				// item that was swiped
+
+				CustomerReceipt.get(getActivity()).removeItem(
+						reverseSortedPositions[0]);
+
+				((SwipeViewAdapter) getListAdapter()).notifyDataSetChanged();
+
+				updateReceipt();
+
+			}
+
+			@Override
+			public void onClosed(int position, boolean fromRight) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onClickFrontView(int position) {
+				// TODO Auto-generated method stub
+				Log.d("swipe", String.format("onClickFrontView %d", position));
+
+				// slv.openAnimate(position); // when you touch front
+				// view it will open
+
+			}
+
+			@Override
+			public void onClickBackView(int position) {
+				// TODO Auto-generated method stub
+				Log.d("swipe", String.format("onClickBackView %d", position));
+
+				// slv.closeAnimate(position);// when you touch back view
+				// it will close
+
+			}
+
+			@Override
+			public void onChoiceStarted() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onChoiceEnded() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onChoiceChanged(int position, boolean selected) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public int onChangeSwipeMode(int position) {
+				// TODO Auto-generated method stub
+				return SwipeListView.SWIPE_MODE_BOTH;
+			}
+		};
+
+		slv.setSwipeListViewListener(slvListener);
+
+		Button btnKeypadCompleteTransaction = (Button) v
+				.findViewById(R.id.receipt_complete_transaction);
+		btnKeypadCompleteTransaction.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Log the receipt when pressing this button
+				// CustomerReceipt.get(getActivity()).writeToFile(getActivity(),
+				// "Some sales data");
+
+				// Get today's date. Format it as such: DD-MM-YYYY
+
+				// Find today's date and print the receipt to that date.
+
+				File file = new File(getActivity().getFilesDir(),
+						"FILE_NAME_HERE.txt");
+
+				Log.d("KeypadFragment", getActivity().getFilesDir().toString());
+				// Log.d("KeypadFragment", getActivity().getDir(name, mode);
+
+				if (file.exists()) {
+
+					// Open the file and append the receipt to that file
+					try {
+
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+
+				} else {
+
+					// Create the file, then write to it.
+
+					try {
+
+						// Creating an internal dir;
+
+						// File mydir = getActivity().getDir(
+						// "com.stormcloud.android.cashregister",
+						// Context.MODE_PRIVATE);
+
+						// Getting a file within the dir
+
+						// File fileWithinMyDir = new File(mydir, "myfile");
+
+						// Use the stream as usual to write into the file.
+						// FileOutputStream out = new FileOutputStream(
+						// fileWithinMyDir);
+
+						OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
+								getActivity().openFileOutput(
+										"FILE_NAME_HERE.txt",
+										Context.MODE_PRIVATE));
+
+						// outputStreamWriter.write("TESTING 1 2 3");
+						// outputStreamWriter.append("");
+						outputStreamWriter.close();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+
+			}
+		});
+
+		return v;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		// ((ReceiptItemAdapter) getListAdapter()).notifyDataSetChanged();
+		((SwipeViewAdapter) getListAdapter()).notifyDataSetChanged();
+
+		updateReceipt();
+
+		Log.d(TAG, "In onResume(), just updated the adapter");
+	}
+
+	/*
+	 * Helper method to update receipt fragment view every time a change is made
+	 * to the receipt
+	 */
+	public void updateReceipt() {
+
+		mReceiptItems = CustomerReceipt.get(getActivity()).getReceiptItems();
+
+		TextView taxTotalTextView = (TextView) getView().findViewById(
+				R.id.receipt_tax_total);
+
+		// taxTotalTextView.setText(String.valueOf(mReceiptItems.size()));
+
+		// *** Get the new grand total and update the view ***
+		double grandTotal = CustomerReceipt.get(getActivity()).priceTotal();
+
+		// Use the formatter to round to nearest 100ths place.
+		DecimalFormat myFormatter = new DecimalFormat("0.00");
+		String output = myFormatter.format(grandTotal);
+
+		mGrandTotalTextView = (TextView) getView().findViewById(
+				R.id.receipt_grand_total);
+		mGrandTotalTextView.setText(output);
+
+	}
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		Item c = (Item) (getListAdapter()).getItem(position);
+
+		Toast.makeText(getActivity(), c + " selected", Toast.LENGTH_SHORT)
+				.show();
+	}
+
+	private class ReceiptItemAdapter extends ArrayAdapter<Item> {
+
+		public ReceiptItemAdapter(ArrayList<Item> items) {
+			super(getActivity(), R.layout.receipt_list_item, items);
+		}
+
+	}
+
+	private class SwipeViewAdapter extends ArrayAdapter<Item> {
+
+		Context mFragmentContext;
+
+		public SwipeViewAdapter(ArrayList<Item> items) {
+			super(getActivity(), R.layout.fragment_receipt, items);
+			this.mFragmentContext = getActivity();
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			// inflate the swipeview layout
+			LayoutInflater inflater = (LayoutInflater) mFragmentContext
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View row = inflater.inflate(R.layout.receipt_swipelistview_item,
+					parent, false);
+			row.setBackgroundColor(getActivity().getResources().getColor(
+					android.R.color.holo_purple));
+
+			// Get the item
+			Item c = (Item) (getListAdapter()).getItem(position);
+
+			// find the textview and the button defined in the layout
+			TextView textViewItemName = (TextView) row
+					.findViewById(R.id.text_item_name);
+			TextView textViewItemPrice = (TextView) row
+					.findViewById(R.id.text_item_price);
+			TextView textViewItemQty = (TextView) row
+					.findViewById(R.id.text_item_qty);
+
+			// Button button = (Button) row.findViewById(R.id.button);
+
+			// set each textview with respective value
+			textViewItemName.setText(c.getName());
+
+			DecimalFormat myFormatter = new DecimalFormat("0.00");
+			textViewItemPrice.setText(myFormatter.format(c.getPrice()));
+
+			if (String.valueOf(c.getQty()) == null) {
+				Log.d(TAG, "Value of qty in adapter getView is null. Problem");
+			} else {
+//				Log.d(TAG, "Value of qty in adapter getView is: " + c.getQty());
+				textViewItemQty.setText(String.valueOf(c.getQty()));
+			}
+
+			return row;
+
+		}
+	}
+}

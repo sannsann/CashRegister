@@ -1,0 +1,18 @@
+package com.stormcloud.cashregister;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class ManagerActivity extends FragmentActivity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_double_fragment);
+		
+	}
+	
+
+
+}

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/receipt_header_related"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/receipt_back"
+            android:layout_width="0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="&lt;" />
+
+        <LinearLayout
+            android:id="@+id/business_info_related"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/receipt_header_line1"
+                style="@style/ReceiptHeader" />
+
+            <TextView
+                android:id="@+id/receipt_header_line2"
+                style="@style/ReceiptHeader" />
+
+            <TextView
+                android:id="@+id/receipt_header_line3"
+                style="@style/ReceiptHeader" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/receipt_forward"
+            android:layout_width="0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="&gt;" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/receipt_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:id="@+id/receipt_footer_totals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/receipt_tax_related"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/receipt_tax_label"
+                    style="@style/ReceiptFooter"
+                    android:text="@string/receipt_tax_label" />
+
+                <TextView
+                    android:id="@+id/receipt_tax_total"
+                    style="@style/ReceiptFooter"
+                    android:text="0.00" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/receipt_total_related"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/receipt_items_total"
+                    style="@style/ReceiptFooter"
+                    android:text="@string/receipt_total_label" />
+
+                <TextView
+                    android:id="@+id/receipt_grand_total"
+                    style="@style/ReceiptFooter"
+                    android:text="0.00" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/receipt_footer_tendered_related"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/receipt_tender_related"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/receipt_tendered_label"
+                    style="@style/ReceiptFooter"
+                    android:text="@string/receipt_tendered_label" />
+
+                <TextView
+                    android:id="@+id/receipt_tendered_total"
+                    style="@style/ReceiptFooter" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/receipt_change_related"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/receipt_change_label"
+                    style="@style/ReceiptFooter"
+                    android:text="@string/receipt_change_label" />
+
+                <TextView
+                    android:id="@+id/receipt_change_total"
+                    style="@style/ReceiptFooter"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/receipt_complete_transaction"
+        style="@style/KeypadButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Complete Transaction"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <include
+        android:id="@+id/list_header"
+        layout="@layout/receipt_swipelistview_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/receipt_header_related" />
+
+    <com.fortysevendeg.swipelistview.SwipeListView xmlns:swipe="http://schemas.android.com/apk/res-auto"
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/receipt_footer"
+        android:layout_below="@id/list_header"
+        android:listSelector="#00000000"
+        android:stackFromBottom="true"
+        swipe:swipeAnimationTime="250"
+        swipe:swipeBackView="@+id/back"
+        swipe:swipeFrontView="@+id/front"
+        swipe:swipeOffsetLeft="100dp"
+        swipe:swipeOffsetRight="100dp"
+        swipe:swipeOpenOnLongPress="false" />
+    <!--
+         <com.fortysevendeg.swipelistview.SwipeListView
+        xmlns:swipe="http://schemas.android.com/apk/res-auto"
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="#00000000"
+        swipe:swipeActionLeft="[reveal | dismiss]"
+        swipe:swipeActionRight="[reveal | dismiss]"
+        swipe:swipeAnimationTime="[miliseconds]"
+        swipe:swipeBackView="@+id/back"
+        swipe:swipeCloseAllItemsWhenMoveList="[true | false]"
+        swipe:swipeFrontView="@+id/front"
+        swipe:swipeMode="[none | both | right | left]"
+        swipe:swipeOffsetLeft="[dimension]"
+        swipe:swipeOffsetRight="[dimension]"
+        swipe:swipeOpenOnLongPress="[true | false]" />
+    -->
+
+
+    <!--
+         <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/receipt_tax_related"
+        android:layout_below="@id/receipt_header"
+        android:stackFromBottom="true" />
+    -->
+
+</RelativeLayout>

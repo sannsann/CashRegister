@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="8dp">
+
+    <LinearLayout
+        android:id="@+id/back"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|center_vertical"
+        android:orientation="vertical"
+        android:tag="back" >
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:text="Button" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/front"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|center_vertical"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:tag="front" >
+
+        <TextView
+            android:id="@+id/text_item_name"
+            android:layout_alignParentLeft="true"
+            android:text="@string/list_item_name"
+            style="@style/SwipeListViewItem"/>
+
+        <TextView
+            android:id="@+id/text_item_price"
+            android:layout_marginRight="32dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/list_item_price"
+            style="@style/SwipeListViewItem"/>
+
+        <TextView
+            android:id="@+id/text_item_qty"
+            android:layout_toLeftOf="@id/text_item_price"
+            android:layout_marginRight="32dp"
+            android:text="@string/list_item_qty"
+            style="@style/SwipeListViewItem"/>
+    </RelativeLayout>
+
+</FrameLayout>

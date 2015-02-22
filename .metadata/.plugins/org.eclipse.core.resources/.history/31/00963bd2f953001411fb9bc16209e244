@@ -1,0 +1,192 @@
+package com.stormcloud.cashregister;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+public class ItemGridFragment extends Fragment {
+
+	/**
+	 * This class is unfinished and has yet to be tested as of 10/14. Ideally,
+	 * the view should displaying pictures using the icons Jenny created with
+	 * the name and price displayed below the icon.
+	 * 
+	 * As of now, the example from the Android documentation is used as a
+	 * placeholder for the items. Appropriate changes will be made upon testing
+	 * on a handheld device.
+	 * 
+	 */
+
+	public static final String TAG = "ItemGridFragment";
+	public static final String EXTRA_ITEM_CATEGORY = "com.stormcloud.cashregister.item_category";
+
+	private ArrayList<Item> mFilteredItems;
+
+	private Button mBackButton;
+
+	OnGridItemSelectedListener mListener;
+
+	// Container Activity must implement this interface
+	public interface OnGridItemSelectedListener {
+		public void onGridItemSelected(Item item);
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		Bundle bundle = this.getArguments();
+		String category = bundle.getString(EXTRA_ITEM_CATEGORY, "NONE");
+		mFilteredItems = ItemInventory.get(getActivity()).getItemsWithCategory(
+				category);
+
+		// ArrayAdapter<Item> adapter = new ArrayAdapter<Item>(getActivity(),
+		// android.R.layout.simple_list_item_1, mFilteredItems);
+
+		// setListAdapter(adapter);
+
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		View view = inflater.inflate(R.layout.fragment_items_grid, null);
+
+		mBackButton = (Button) view.findViewById(R.id.button_back);
+		mBackButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+
+				Fragment fragmentKeypad = new KeypadFragment();
+
+				fm.beginTransaction()
+						.replace(R.id.fragmentContainerRight, fragmentKeypad)
+						.commit();
+			}
+		});
+
+		GridView gridview = (GridView) view.findViewById(R.id.gridview);
+
+		ImageAdapter adapter = new ImageAdapter(getActivity());
+		gridview.setAdapter(adapter);
+
+		gridview.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT)
+						.show();
+
+				// Item c = new Item();
+				//
+				// if (c != null) {
+				// mListener.onItemSelected(c);
+				// }
+			}
+		});
+
+		return view;
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mListener = (OnGridItemSelectedListener) activity;
+		} catch (ClassCastException e) {
+
+			e.printStackTrace();
+			throw new ClassCastException(activity.toString()
+					+ " must implement OnItemSelectedListener");
+
+		}
+	}
+
+	// @Override
+	// public void onListItemClick(ListView l, View v, int position, long id) {
+	// Item c = (Item) (getListAdapter()).getItem(position);
+	//
+	// if (c != null) {
+	// mListener.onItemSelected(c);
+	// }
+	// }
+
+	public class ImageAdapter extends BaseAdapter {
+		private Context mContext;
+
+		public ImageAdapter(Context c) {
+			mContext = c;
+		}
+
+		public int getCount() {
+			return mThumbIds.length;
+		}
+
+		public Object getItem(int position) {
+			return null;
+		}
+
+		public long getItemId(int position) {
+			return 0;
+		}
+
+		// create a new ImageView for each item referenced by the Adapter
+		public View getView(int position, View convertView, ViewGroup parent) {
+			
+			LayoutInflater inflater = (LayoutInflater) getActivity()
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View gridItem = inflater.inflate(R.layout.inventory_grid_item,
+					parent, false);
+
+			ImageView imageView;
+
+			if (convertView == null) {
+
+				// if it's not recycled, initialize some attributes
+				imageView = new ImageView(mContext);
+				imageView.setLayoutParams(new GridView.LayoutParams(80, 80));
+				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				imageView.setPadding(4, 4, 4, 4);
+			} else {
+				imageView = (ImageView) convertView;
+			}
+
+			imageView.setImageResource(mThumbIds[position]);
+			return imageView;
+		}
+
+		// references to our images
+		private Integer[] mThumbIds = { R.drawable.coffee,
+				R.drawable.cookie,
+				R.drawable.croissant,
+				R.drawable.donut_dozen,
+				R.drawable.donut_glaze,
+				R.drawable.donut_half_dozen,
+				R.drawable.donut_jelly,
+				R.drawable.donut_twist,
+				R.drawable.ic_launcher,
+				R.drawable.milk_large,
+				R.drawable.milk_small,
+				R.drawable.muffin,
+				R.drawable.orange_juice,
+				R.drawable.smoothie, };
+	}
+}

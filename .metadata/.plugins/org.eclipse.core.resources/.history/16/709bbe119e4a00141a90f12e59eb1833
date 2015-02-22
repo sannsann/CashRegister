@@ -1,0 +1,261 @@
+package com.stormcloud.cashregister;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.text.DecimalFormat;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class KeypadFragment extends Fragment {
+
+	private TextView mDisplayTextView;
+
+	private String displayValue = "";
+
+	OnTenderedAmountSetListener mListener;
+
+	// Container Activity must implement this interface
+	public interface OnTenderedAmountSetListener {
+		public void onTenderedSet();
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
+			Bundle savedInstanceState) {
+
+		View v = inflater.inflate(R.layout.fragment_keypad, parent, false);
+
+		mDisplayTextView = (TextView) v.findViewById(R.id.keypad_display);
+		mDisplayTextView.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+
+				// If the display is empty, set it to 0.00
+				if (s.length() == 0) {
+					mDisplayTextView.setText("0.00");
+				}
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+			}
+		});
+
+		Button btnKeypad1 = (Button) v.findViewById(R.id.keypad1);
+		btnKeypad1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "1";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad2 = (Button) v.findViewById(R.id.keypad2);
+		btnKeypad2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "2";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad3 = (Button) v.findViewById(R.id.keypad3);
+		btnKeypad3.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "3";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad4 = (Button) v.findViewById(R.id.keypad4);
+		btnKeypad4.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "4";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad5 = (Button) v.findViewById(R.id.keypad5);
+		btnKeypad5.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "5";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad6 = (Button) v.findViewById(R.id.keypad6);
+		btnKeypad6.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "6";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad7 = (Button) v.findViewById(R.id.keypad7);
+		btnKeypad7.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "7";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad8 = (Button) v.findViewById(R.id.keypad8);
+		btnKeypad8.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "8";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad9 = (Button) v.findViewById(R.id.keypad9);
+		btnKeypad9.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "9";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad0 = (Button) v.findViewById(R.id.keypad0);
+		btnKeypad0.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "0";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypad00 = (Button) v.findViewById(R.id.keypad00);
+		btnKeypad00.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue += "00";
+				mDisplayTextView.setText(displayValue);
+			}
+		});
+
+		Button btnKeypadDot = (Button) v.findViewById(R.id.keypaddot);
+		btnKeypadDot.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (!displayValue.contains(".")) {
+					displayValue += ".";
+					mDisplayTextView.setText(displayValue);
+				}
+
+			}
+		});
+
+		Button btnKeypadEnter = (Button) v.findViewById(R.id.keypad_enter);
+		btnKeypadEnter.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Implement function for entering tendered amount
+
+				// Make sure the contents of displayValue isn't empty or a
+				// single decimal point
+				if (displayValue.length() == 0 || displayValue.equals(".")) {
+					return;
+				}
+
+				DecimalFormat myFormatter = new DecimalFormat("0.00");
+				String output = myFormatter.format(Double
+						.parseDouble(displayValue));
+				// tvTendered.setText(output);
+
+				CustomerReceipt.get(getActivity()).setTendered(
+						Double.parseDouble(output));
+
+				mListener.onTenderedSet();
+
+			}
+		});
+
+		Button btnKeypadClear = (Button) v.findViewById(R.id.keypad_clear);
+		btnKeypadClear.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				displayValue = "";
+				mDisplayTextView.setText(displayValue);
+			}
+			
+			@Override
+			public void onLongClick(View v) {
+				
+			}
+		});
+		
+		btnKeypadClear.setLongClickable(true);
+
+		
+		return v;
+
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mListener = (OnTenderedAmountSetListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString()
+					+ " must implement OnTenderedAmountSetListener");
+		}
+	}
+}

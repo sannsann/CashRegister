@@ -1,0 +1,28 @@
+package com.stormcloud.cashregister;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+
+public class ManagerActivity extends FragmentActivity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_double_fragment);
+	
+		FragmentManager fm = getSupportFragmentManager();
+		
+		Fragment itemFragment = fm.findFragmentById(R.id.fragmentContainerLeft)
+		if (fragmentReceipt == null) {
+			fragmentReceipt = new ReceiptFragment();
+			fm.beginTransaction()
+					.add(R.id.fragmentContainerLeft, fragmentReceipt).commit();
+		}
+	}
+	
+
+
+}

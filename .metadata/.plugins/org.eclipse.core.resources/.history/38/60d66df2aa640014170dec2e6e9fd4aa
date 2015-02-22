@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/keypad_display"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="fill"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/black"
+        android:padding="24dp"
+        android:gravity="right"
+        android:text="0.00"
+        android:textAlignment="viewEnd"
+        android:textColor="@android:color/holo_green_light"
+        android:textDirection="rtl"
+        android:textSize="32sp" />
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="120dp"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        android:rowCount="5" >
+
+        <Button
+            android:id="@+id/keypad1"
+            style="@style/KeypadButton"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/keypad2"
+            style="@style/KeypadButton"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/keypad3"
+            style="@style/KeypadButton"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/keypad4"
+            style="@style/KeypadButton"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/keypad5"
+            style="@style/KeypadButton"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/keypad6"
+            style="@style/KeypadButton"
+            android:text="6" />
+
+        <Button
+            android:id="@+id/keypad7"
+            style="@style/KeypadButton"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/keypad8"
+            style="@style/KeypadButton"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/keypad9"
+            style="@style/KeypadButton"
+            android:text="9" />
+
+        <Button
+            android:id="@+id/keypad0"
+            style="@style/KeypadButton"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/keypad00"
+            style="@style/KeypadButton"
+            android:text="00" />
+
+        <Button
+            android:id="@+id/keypaddot"
+            style="@style/KeypadButton"
+            android:text="." />
+
+        <Button
+            android:id="@+id/keypad_enter"
+            style="@style/KeypadButton"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill"
+            android:layout_rowSpan="2"
+            android:text="Enter"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/keypad_clear"
+            style="@style/KeypadButton"
+            android:text="Clear"
+            android:textSize="16sp" />
+    </GridLayout>
+
+</LinearLayout>

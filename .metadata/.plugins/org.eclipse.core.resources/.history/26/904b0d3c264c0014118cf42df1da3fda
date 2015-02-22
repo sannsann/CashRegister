@@ -1,0 +1,248 @@
+package com.stormcloud.cashregister;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.DecimalFormat;
+
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.stormcloud.cashregister.CategoryListFragment.OnCategorySelectedListener;
+import com.stormcloud.cashregister.ItemListFragment.OnItemSelectedListener;
+import com.stormcloud.cashregister.KeypadFragment.OnItemsClearedListener;
+import com.stormcloud.cashregister.KeypadFragment.OnTenderedAmountSetListener;
+
+public class POSActivity extends FragmentActivity implements
+		OnCategorySelectedListener, OnItemSelectedListener,
+		OnTenderedAmountSetListener, OnItemsClearedListener {
+
+	private final static String TAG = "com.stormcloud.cashregister.pos_activity";
+
+	OnCategorySelectedListener mCatListener;
+	OnItemSelectedListener mItemListener;
+	OnTenderedAmountSetListener mTenderedListener;
+	OnItemsClearedListener mClearedListener;
+
+	InputStream instream;
+
+	public static final String EXTRA_ITEM_CATEGORY = "com.stormcloud.cashregister.item_category";
+	public static final String EXTRA_RECEIPT_ITEM = "com.stormcloud.cashregister.receipt_item";
+
+	/** Called when the activity is first created. */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_triple_fragment);
+
+		try {
+
+			// Retrieve assets from the AssetManager
+			AssetManager assetManager = this.getAssets();
+
+			// prepare the file for reading
+			InputStreamReader instream = new InputStreamReader(
+					assetManager.open("CashRegisterInventory.csv"));
+
+			BufferedReader reader = new BufferedReader(instream);
+			// reader.readLine();
+			String line; // Variable to hold a line
+
+			// Read the lines until end of file
+			while ((line = reader.readLine()) != null) {
+
+				// Used *** to denote comment lines in the ipnut csv file
+				if (line.contains("***")) {
+					continue;
+				} else {
+					// Create the item according to details in the csv file
+					String[] itemDetails = line.split(",");
+					Item item = new Item();
+					for (int i = 0; i < itemDetails.length; i++) {
+						item.setName(itemDetails[0]);
+						item.setCategory(itemDetails[1]);
+						item.setPrice(Double.parseDouble(itemDetails[2]));
+						item.setTaxable(Boolean.parseBoolean(itemDetails[3]));
+
+						// This one will have to be dealt with to work properly
+						// alongside inventory assistance feature.
+						item.setQty(Integer.parseInt(itemDetails[4]));
+
+					}
+					ItemInventory.get(this).addItem(item);
+				}
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		/*
+		 * Do I need this code to retain a forced Landscape orientation?
+		 * ******** // // register to be informed of activities starting up //
+		 * registerFragmentActivityLifecycleCallbacks(new
+		 * ActivityLifecycleCallbacks() { // // @Override // public void
+		 * onActivityCreated(Activity activity, // Bundle savedInstanceState) {
+		 * // // // new activity created; force its orientation to portrait //
+		 * activity.setRequestedOrientation( //
+		 * ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // // } // // });********
+		 */
+
+		FragmentManager fm = getSupportFragmentManager();
+
+		Fragment fragmentReceipt = fm
+				.findFragmentById(R.id.fragmentContainerLeft);
+		if (fragmentReceipt == null) {
+			fragmentReceipt = new ReceiptFragment();
+			fm.beginTransaction()
+					.add(R.id.fragmentContainerLeft, fragmentReceipt).commit();
+		}
+
+		Fragment fragmentItemCat = fm
+				.findFragmentById(R.id.fragmentContainerMiddle);
+		if (fragmentItemCat == null) {
+			fragmentItemCat = new CategoryListFragment();
+			fm.beginTransaction()
+					.add(R.id.fragmentContainerMiddle, fragmentItemCat)
+					.commit();
+		}
+
+		Fragment fragmentKeyPad = fm
+				.findFragmentById(R.id.fragmentContainerRight);
+		if (fragmentKeyPad == null) {
+			fragmentKeyPad = new KeypadFragment();
+			fm.beginTransaction()
+					.add(R.id.fragmentContainerRight, fragmentKeyPad).commit();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_add_item:
+	            addItem();
+	            return true;
+	        case R.id.action_settings:
+	           // openSettings();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+
+	@Override
+	public void onCategorySelected(String category) {
+
+		Bundle data = new Bundle();
+		data.putString(EXTRA_ITEM_CATEGORY, category);
+
+		FragmentManager fm = getSupportFragmentManager();
+
+		Fragment fragmentInventory = new ItemListFragment();
+		fragmentInventory.setArguments(data);
+
+		fm.beginTransaction()
+				.replace(R.id.fragmentContainerRight, fragmentInventory)
+				.commit();
+	}
+
+	@Override
+	public void onItemSelected(Item item) {
+		// Add selected item to the customer's receipt
+
+		if (CustomerReceipt.get(this).getReceiptItems().contains(item)) {
+			int itemPosition = CustomerReceipt.get(this).getReceiptItems()
+					.indexOf(item);
+
+			Log.d(TAG, "onItemSelected, found a similar item at position: "
+					+ itemPosition);
+
+			int updatedQty = CustomerReceipt.get(this).getItem(itemPosition)
+					.getQty() + 1;
+
+			CustomerReceipt.get(this).getItem(itemPosition).setQty(updatedQty);
+
+		} else {
+
+			item.setQty(1); // Set the first item's qty to 1 then add to list.
+			CustomerReceipt.get(this).addReceiptItem(item);
+
+		}
+
+		Log.d(TAG, "Item was selected and added");
+		Log.d(TAG, CustomerReceipt.get(this).getReceiptItems().toString());
+		FragmentManager fm = getSupportFragmentManager();
+
+		Fragment fragmentReceipt = new ReceiptFragment();
+		Log.d(TAG, "Created the new receipt fragment");
+
+		fm.beginTransaction()
+				.replace(R.id.fragmentContainerLeft, fragmentReceipt).commit();
+
+	}
+
+	@Override
+	public void onTenderedSet() {
+
+		/**
+		 * These controls should be moved to the receipt fragment as that is the
+		 * parent.
+		 * 
+		 * How should the callback be relayed from the two fragments via the
+		 * activity?
+		 */
+		TextView tvTendered = (TextView) this
+				.findViewById(R.id.receipt_tendered_total);
+
+		DecimalFormat myFormatter = new DecimalFormat("#,##0.00");
+		String output = myFormatter.format(CustomerReceipt.get(this)
+				.getTendered());
+
+		tvTendered.setText(output);
+
+		TextView tvChange = (TextView) this
+				.findViewById(R.id.receipt_change_total);
+
+		output = myFormatter.format(CustomerReceipt.get(this).getChange());
+		tvChange.setText(output);
+
+		Button btnCompleteTransaction = (Button) this
+				.findViewById(R.id.receipt_complete_transaction);
+		btnCompleteTransaction.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void onItemsCleared() {
+		FragmentManager fm = getSupportFragmentManager();
+
+		Fragment fragmentReceipt = new ReceiptFragment();
+		Log.d(TAG, "Created the new receipt fragment");
+
+		fm.beginTransaction()
+				.replace(R.id.fragmentContainerLeft, fragmentReceipt).commit();
+	}
+	
+	public void addItem() {
+		Intent intent = new Intent(this, ManagerActivity.class);
+		
+		startActivity(intent);
+	}
+}

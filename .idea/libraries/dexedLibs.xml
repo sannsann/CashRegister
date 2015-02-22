@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/CashRegister/bin/dexedLibs/nineoldandroids-2.4.0-17a5378f08490e83b45f25aee4e6057d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CashRegister/bin/dexedLibs/android-support-v4-5f70648260fa523f0120b336bb33541c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CashRegister/bin/dexedLibs/android-support-v4-260ded80823dabc654ab721f54e8dbce.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CashRegister/bin/dexedLibs/nineoldandroids-2.4.0-8cd1fc177e0f38b749fc380ad5d46834.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

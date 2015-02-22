@@ -1,0 +1,29 @@
+***item_name,category,price,taxable,qty
+***donut
+glaze,donut,0.80,false,-1
+twist,donut,0.90,false,-1
+***baked good
+muffin,baked good,-1.50,false,-1
+cookie,baked good,-1.25,false,-1
+plain croissant,baked good,-1.35,false,-1
+fruit-cheese croissant,baked good,1.50,-1
+ham & cheese croissant,baked good,2.55,-1
+***hot beverage
+coffee small,hot beverage,-1.25,false,-1
+coffee large,hot beverage,-1.40,false,-1
+hot chocolate small,hot beverage,-1.35,false,-1
+hot chocolate large,hot beverage,-1.90,false,-1
+***cold drink
+milk small,cold drink,-1.00,false,-1
+milk large,cold drink,-1.50,false,-1
+choc milk small,cold drink,-1.00,false,-1
+choc milk large,cold drink,-1.50,false,-1
+orange juice small,cold drink,-1.00,false,-1
+orange juice large,cold drink,-1.50,false,-1
+apple juice,cold drink,-1.50,false,-1
+soda can,cold drink,-1.00,true,-1
+***cigarettes
+***lotto
+***scratcher
+
+

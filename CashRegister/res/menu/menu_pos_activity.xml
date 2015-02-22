@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_print_receipt"
+        android:orderInCategory="100"
+        android:showAsAction="always|withText"
+        android:title="Print Receipt" />
+    <item
+        android:id="@+id/action_item_inventory"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_item_inventory"/>
+
+    <item
+        android:id="@+id/action_sales_report"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_sales_report"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_about"/>
+
+</menu>

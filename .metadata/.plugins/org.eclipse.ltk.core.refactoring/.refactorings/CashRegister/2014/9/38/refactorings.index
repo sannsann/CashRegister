@@ -1,0 +1,12 @@
+1410663899784	Rename field 'mListener'
+1410668584058	Rename field 'mItems'
+1410932762446	Rename resource 'fragment_item_list.xml'
+1410990791763	Delete element
+1410990893845	Delete element
+1410990970956	Move compilation units
+1411010860117	Delete elements
+1411065477473	Rename local variable 'taxTotal'
+1411065526682	Rename local variable 'grandTotal'
+1411065536175	Rename local variable 'grandTotalTextVIew'
+1411187417482	Delete element
+1411187507264	Rename resource 'swipelistview.xml'

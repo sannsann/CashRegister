@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="265" key="DIALOG_WIDTH"/>
+		<item value="252" key="DIALOG_Y_ORIGIN"/>
+		<item value="399" key="DIALOG_HEIGHT"/>
+		<item value="799" key="DIALOG_X_ORIGIN"/>
+		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="" key="selection"/>
+		<list key="findhistory">
+			<item value="android:text"/>
+			<item value=" android:text=&quot;/d&quot; /&gt;"/>
+			<item value=" android:text=&quot;1&quot; /&gt;"/>
+			<item value="update"/>
+			<item value="void"/>
+			<item value="void up"/>
+			<item value="void upd"/>
+			<item value="action"/>
+		</list>
+		<list key="replacehistory">
+			<item value=""/>
+			<item value=" "/>
+			<item value="00"/>
+			<item value="0"/>
+			<item value="1"/>
+			<item value="9"/>
+			<item value="8"/>
+			<item value="7"/>
+		</list>
+	</section>
+</section>

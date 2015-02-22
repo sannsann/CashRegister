@@ -1,0 +1,69 @@
+***item_name,category,price,taxable,qty,icon
+***donut
+Plain Cake,Donut,0.60,false,-1,10
+Fancy Cake,Donut,0.75,false,-1,9
+Oldfashion,Donut,0.80,false,-1,10
+Buttermilk,Donut,0.90,false,-1,6
+Glaze,Donut,0.80,false,-1,10
+Twist,Donut,0.90,false,-1,14
+Bar,Donut,0.90,false,-1,6
+Jelly,Donut,0.90,false,-1,13
+10 Donut Holes,Donut,1,false,-1,12
+Apple Fritter,Donut,1.35,false,-1,5
+Cinnamon Roll,Donut,1.35,false,-1,7
+Half Dozen Donut,Donut,4.25,false,-1,11
+Dozen Donut,Donut,8,false,-1,8
+***baked good
+Muffin,Baked Good,1.50,false,-1,19
+Honey Bran,Baked Good,1.65,false,-1,19
+Cookie,Baked Good,1.25,false,-1,2
+Bagel,Baked Good,1.55,false,-1,10
+Plain Croissant,Baked Good,1.35,false,-1,3
+Fruit/Cheese Croissant,Baked Good,1.50,false,-1,4
+Ham & Cheese Croissant,Baked Good,2.55,false,-1,4
+***coffee & tea
+Coffee/Tea Small,Coffee & Tea,1.25,false,-1,1
+Coffee/Tea Large,Coffee & Tea,1.40,false,-1,0
+Hot Chocolate Small,Coffee & Tea,1.35,false,-1,16
+Hot Chocolate Large,Coffee & Tea,1.90,false,-1,15
+Cappuccino Small,Coffee & Tea,1.65,false,-1,1
+Cappuccino Large,Coffee & Tea,2.25,false,-1,0
+Smoothie,Coffee & Tea,3.50,false,-1,22
+Starbucks Frappucino,Coffee & Tea, 2.06,true,-1,35
+***milk&juice
+Milk Small,Milk & Juice,1.00,false,-1,18
+Milk Large,Milk & Juice,1.50,false,-1,17
+Choc Milk Small,Milk & Juice,1.00,false,-1,18
+Choc Milk Large,Milk & Juice,1.50,false,-1,17
+Orange Juice Small,Milk & Juice,1.00,false,-1,21
+Orange Juice Large,Milk & Juice,1.50,false,-1,20
+Apple Juice,Milk & Juice,1.50,false,-1,26
+Nesquick,Milk & Juice,2,false,-1,34
+****soft drink
+Soda Can,Soft Drink,0.92,true,-1,23
+Snapple,Soft Drink,1.61,true,-1,29
+Monster,Soft Drink,2.29,true,-1,27
+Red Bull,Soft Drink,2.07,true,-1,28
+Water Small,Soft Drink,0.78,true,-1,25
+Water Large,Soft Drink,1.15,true,-1,24
+Snapple can,Soft Drink,0.78,true,-1,30
+Gatorade,Soft Drink,1.38,true,-1,31
+***lotto
+Lotto,Lotto,1.00,false,-1,32
+Lotto,Lotto,2.00,false,-1,32
+Lotto,Lotto,5.00,false,-1,32
+Lotto,Lotto,10.00,false,-1,32
+***lotto (payout)
+Lotto (Payout),Lotto (Payout),-1.00,false,-1,37
+***scratcher
+Scratcher,Scratcher,1.00,false,-1,33
+Scratcher,Scratcher,2.00,false,-1,33
+Scratcher,Scratcher,3.00,false,-1,33
+Scratcher,Scratcher,5.00,false,-1,33
+Scratcher,Scratcher,10.00,false,-1,33
+Scratcher,Scratcher,20.00,false,-1,33
+***scratcher (payout)
+Scratcher (Payout),Scratcher (Payout),-1.00,false,-1,36
+
+
+
