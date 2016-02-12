@@ -640,7 +640,6 @@ public class ReceiptFragment extends ListFragment {
         return tempCounter;
     }
 
-    // Rename this function properly please.
     public void loadPreviousSale() {
         try {
 
